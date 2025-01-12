@@ -1,0 +1,136 @@
+syntax = "proto3";
+
+package istio.api.networking.v1alpha3;
+
+import "istio.io/api/meta/v1alpha1/status.proto";
+import "istio.io/api/networking/v1alpha3/destination_rule.proto";
+import "istio.io/api/networking/v1alpha3/envoy_filter.proto";
+import "istio.io/api/networking/v1alpha3/gateway.proto";
+import "istio.io/api/networking/v1alpha3/service_entry.proto";
+import "istio.io/api/networking/v1alpha3/sidecar.proto";
+import "istio.io/api/networking/v1alpha3/virtual_service.proto";
+import "istio.io/api/networking/v1alpha3/workload_entry.proto";
+import "istio.io/api/networking/v1alpha3/workload_group.proto";
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+
+option go_package = "istio.io/client-go/pkg/apis/networking/v1alpha3";
+
+message DestinationRule {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional .istio.networking.v1alpha3.DestinationRule spec = 4;
+  optional .istio.meta.v1alpha1.IstioStatus status = 5;
+}
+
+message DestinationRuleList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated DestinationRule items = 4;
+}
+
+message EnvoyFilter {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional .istio.networking.v1alpha3.EnvoyFilter spec = 4;
+  optional .istio.meta.v1alpha1.IstioStatus status = 5;
+}
+
+message EnvoyFilterList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated EnvoyFilter items = 4;
+}
+
+message Gateway {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional .istio.networking.v1alpha3.Gateway spec = 4;
+  optional .istio.meta.v1alpha1.IstioStatus status = 5;
+}
+
+message GatewayList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated Gateway items = 4;
+}
+
+message ServiceEntry {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional .istio.networking.v1alpha3.ServiceEntry spec = 4;
+  optional .istio.networking.v1alpha3.ServiceEntryStatus status = 5;
+}
+
+message ServiceEntryList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated ServiceEntry items = 4;
+}
+
+message Sidecar {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional .istio.networking.v1alpha3.Sidecar spec = 4;
+  optional .istio.meta.v1alpha1.IstioStatus status = 5;
+}
+
+message SidecarList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated Sidecar items = 4;
+}
+
+message VirtualService {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional .istio.networking.v1alpha3.VirtualService spec = 4;
+  optional istio.meta.v1alpha1.IstioStatus status = 5;
+}
+
+message VirtualServiceList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated VirtualService items = 4;
+}
+
+message WorkloadEntry {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional .istio.networking.v1alpha3.WorkloadEntry spec = 4;
+  optional istio.meta.v1alpha1.IstioStatus status = 5;
+}
+
+message WorkloadEntryList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated WorkloadEntry items = 4;
+}
+
+message WorkloadGroup {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional .istio.networking.v1alpha3.WorkloadGroup spec = 4;
+  optional istio.meta.v1alpha1.IstioStatus status = 5;
+}
+
+message WorkloadGroupList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated WorkloadGroup items = 4;
+}

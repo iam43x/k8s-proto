@@ -1,0 +1,243 @@
+syntax = "proto2";
+
+package k8s.io.api.apps.v1;
+
+import "k8s.io/api/core/v1/all_types.proto";
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+import "k8s.io/apimachinery/pkg/runtime/generated.proto";
+import "k8s.io/apimachinery/pkg/runtime/schema/generated.proto";
+import "k8s.io/apimachinery/pkg/util/intstr/generated.proto";
+option go_package = "k8s.io/api/apps/v1";
+
+message ControllerRevision {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional .k8s.io.apimachinery.pkg.runtime.RawExtension data = 4;
+  optional int64 revision = 5;
+}
+
+message ControllerRevisionList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated ControllerRevision items = 4;
+}
+
+message DaemonSet {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional DaemonSetSpec spec = 4;
+  optional DaemonSetStatus status = 5;
+}
+
+message DaemonSetCondition {
+  optional string type = 1;
+  optional string status = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastTransitionTime = 3;
+  optional string reason = 4;
+  optional string message = 5;
+}
+
+message DaemonSetList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated DaemonSet items = 4;
+}
+
+message DaemonSetSpec {
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 1;
+  optional .k8s.io.api.core.v1.PodTemplateSpec template = 2;
+  optional DaemonSetUpdateStrategy updateStrategy = 3;
+  optional int32 minReadySeconds = 4;
+  optional int32 revisionHistoryLimit = 6;
+}
+
+message DaemonSetStatus {
+  optional int32 currentNumberScheduled = 1;
+  optional int32 numberMisscheduled = 2;
+  optional int32 desiredNumberScheduled = 3;
+  optional int32 numberReady = 4;
+  optional int64 observedGeneration = 5;
+  optional int32 updatedNumberScheduled = 6;
+  optional int32 numberAvailable = 7;
+  optional int32 numberUnavailable = 8;
+  optional int32 collisionCount = 9;
+  repeated DaemonSetCondition conditions = 10;
+}
+
+message DaemonSetUpdateStrategy {
+  optional string type = 1;
+  optional RollingUpdateDaemonSet rollingUpdate = 2;
+}
+
+message Deployment {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional DeploymentSpec spec = 4;
+  optional DeploymentStatus status = 5;
+}
+
+message DeploymentCondition {
+  optional string type = 1;
+  optional string status = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastUpdateTime = 6;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastTransitionTime = 7;
+  optional string reason = 4;
+  optional string message = 5;
+}
+
+message DeploymentList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated Deployment items = 4;
+}
+
+message DeploymentSpec {
+  optional int32 replicas = 1;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 2;
+  optional .k8s.io.api.core.v1.PodTemplateSpec template = 3;
+  optional DeploymentStrategy strategy = 4;
+  optional int32 minReadySeconds = 5;
+  optional int32 revisionHistoryLimit = 6;
+  optional bool paused = 7;
+  optional int32 progressDeadlineSeconds = 9;
+}
+
+message DeploymentStatus {
+  optional int64 observedGeneration = 1;
+  optional int32 replicas = 2;
+  optional int32 updatedReplicas = 3;
+  optional int32 readyReplicas = 7;
+  optional int32 availableReplicas = 4;
+  optional int32 unavailableReplicas = 5;
+  repeated DeploymentCondition conditions = 6;
+  optional int32 collisionCount = 8;
+}
+
+message DeploymentStrategy {
+  optional string type = 1;
+  optional RollingUpdateDeployment rollingUpdate = 2;
+}
+
+message ReplicaSet {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional ReplicaSetSpec spec = 4;
+  optional ReplicaSetStatus status = 5;
+}
+
+message ReplicaSetCondition {
+  optional string type = 1;
+  optional string status = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastTransitionTime = 3;
+  optional string reason = 4;
+  optional string message = 5;
+}
+
+message ReplicaSetList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated ReplicaSet items = 4;
+}
+
+message ReplicaSetSpec {
+  optional int32 replicas = 1;
+  optional int32 minReadySeconds = 4;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 2;
+  optional .k8s.io.api.core.v1.PodTemplateSpec template = 3;
+}
+
+message ReplicaSetStatus {
+  optional int32 replicas = 1;
+  optional int32 fullyLabeledReplicas = 2;
+  optional int32 readyReplicas = 4;
+  optional int32 availableReplicas = 5;
+  optional int64 observedGeneration = 3;
+  repeated ReplicaSetCondition conditions = 6;
+}
+
+message RollingUpdateDaemonSet {
+  optional .k8s.io.apimachinery.pkg.util.intstr.IntOrString maxUnavailable = 1;
+  optional .k8s.io.apimachinery.pkg.util.intstr.IntOrString maxSurge = 2;
+}
+
+message RollingUpdateDeployment {
+  optional .k8s.io.apimachinery.pkg.util.intstr.IntOrString maxUnavailable = 1;
+  optional .k8s.io.apimachinery.pkg.util.intstr.IntOrString maxSurge = 2;
+}
+
+message RollingUpdateStatefulSetStrategy {
+  optional int32 partition = 1;
+  optional .k8s.io.apimachinery.pkg.util.intstr.IntOrString maxUnavailable = 2;
+}
+
+message StatefulSet {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional StatefulSetSpec spec = 4;
+  optional StatefulSetStatus status = 5;
+}
+
+message StatefulSetCondition {
+  optional string type = 1;
+  optional string status = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastTransitionTime = 3;
+  optional string reason = 4;
+  optional string message = 5;
+}
+
+message StatefulSetList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated StatefulSet items = 4;
+}
+
+message StatefulSetOrdinals {
+  optional int32 start = 1;
+}
+
+message StatefulSetPersistentVolumeClaimRetentionPolicy {
+  optional string whenDeleted = 1;
+  optional string whenScaled = 2;
+}
+
+message StatefulSetSpec {
+  optional int32 replicas = 1;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 2;
+  optional .k8s.io.api.core.v1.PodTemplateSpec template = 3;
+  repeated .k8s.io.api.core.v1.PersistentVolumeClaim volumeClaimTemplates = 4;
+  optional string serviceName = 5;
+  optional string podManagementPolicy = 6;
+  optional StatefulSetUpdateStrategy updateStrategy = 7;
+  optional int32 revisionHistoryLimit = 8;
+  optional int32 minReadySeconds = 9;
+  optional StatefulSetPersistentVolumeClaimRetentionPolicy persistentVolumeClaimRetentionPolicy = 10;
+  optional StatefulSetOrdinals ordinals = 11;
+}
+
+message StatefulSetStatus {
+  optional int64 observedGeneration = 1;
+  optional int32 replicas = 2;
+  optional int32 readyReplicas = 3;
+  optional int32 currentReplicas = 4;
+  optional int32 updatedReplicas = 5;
+  optional string currentRevision = 6;
+  optional string updateRevision = 7;
+  optional int32 collisionCount = 9;
+  repeated StatefulSetCondition conditions = 10;
+  optional int32 availableReplicas = 11;
+}
+
+message StatefulSetUpdateStrategy {
+  optional string type = 1;
+  optional RollingUpdateStatefulSetStrategy rollingUpdate = 2;
+}

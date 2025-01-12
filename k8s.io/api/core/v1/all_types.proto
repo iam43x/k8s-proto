@@ -1,0 +1,1739 @@
+syntax = "proto2";
+
+package k8s.io.api.core.v1;
+
+import "k8s.io/apimachinery/pkg/api/resource/generated.proto";
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+import "k8s.io/apimachinery/pkg/runtime/generated.proto";
+import "k8s.io/apimachinery/pkg/runtime/schema/generated.proto";
+import "k8s.io/apimachinery/pkg/util/intstr/generated.proto";
+
+option go_package = "k8s.io/api/core/v1";
+
+message PersistentVolume {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional PersistentVolumeSpec spec = 4;
+  optional PersistentVolumeStatus status = 5;
+}
+
+message PersistentVolumeList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated PersistentVolume items = 4;
+}
+
+message PersistentVolumeClaim {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional PersistentVolumeClaimSpec spec = 4;
+  optional PersistentVolumeClaimStatus status = 5;
+}
+
+message PersistentVolumeClaimList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated PersistentVolumeClaim items = 4;
+}
+
+message PodStatus {
+  optional string phase = 1;
+  repeated PodCondition conditions = 2;
+  optional string message = 3;
+  optional string reason = 4;
+  optional string nominatedNodeName = 11;
+  optional string hostIP = 5;
+  repeated HostIP hostIPs = 16;
+  optional string podIP = 6;
+  repeated PodIP podIPs = 12;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time startTime = 7;
+  repeated ContainerStatus initContainerStatuses = 10;
+  repeated ContainerStatus containerStatuses = 8;
+  optional string qosClass = 9;
+  repeated ContainerStatus ephemeralContainerStatuses = 13;
+  optional string resize = 14;
+  repeated PodResourceClaimStatus resourceClaimStatuses = 15;
+}
+
+message PodStatusResult {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional PodStatus status = 4;
+}
+
+message Pod {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional PodSpec spec = 4;
+  optional PodStatus status = 5;
+}
+
+message PodList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated Pod items = 4;
+}
+
+message PodTemplate {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional PodTemplateSpec template = 4;
+}
+
+message PodTemplateList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated PodTemplate items = 4;
+}
+
+message ReplicationController {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional ReplicationControllerSpec spec = 4;
+  optional ReplicationControllerStatus status = 5;
+}
+
+message ReplicationControllerList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated ReplicationController items = 4;
+}
+
+message Service {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional ServiceSpec spec = 4;
+  optional ServiceStatus status = 5;
+}
+
+message ServiceList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated Service items = 4;
+}
+
+message ServiceAccount {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  repeated ObjectReference secrets = 4;
+  repeated LocalObjectReference imagePullSecrets = 5;
+  optional bool automountServiceAccountToken = 6;
+}
+
+message ServiceAccountList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated ServiceAccount items = 4;
+}
+
+message Endpoints {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  repeated EndpointSubset subsets = 4;
+}
+
+message EndpointsList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated Endpoints items = 4;
+}
+
+message Node {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional NodeSpec spec = 4;
+  optional NodeStatus status = 5;
+}
+
+message NodeList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated Node items = 4;
+}
+
+message Namespace {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional NamespaceSpec spec = 4;
+  optional NamespaceStatus status = 5;
+}
+
+message NamespaceList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated Namespace items = 4;
+}
+
+message Binding {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional ObjectReference target = 4;
+}
+
+message PodLogOptions {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional string container = 3;
+  optional bool follow = 4;
+  optional bool previous = 5;
+  optional int64 sinceSeconds = 6;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time sinceTime = 7;
+  optional bool timestamps = 8;
+  optional int64 tailLines = 9;
+  optional int64 limitBytes = 10;
+  optional bool insecureSkipTLSVerifyBackend = 11;
+}
+
+message PodAttachOptions {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional bool stdin = 3;
+  optional bool stdout = 4;
+  optional bool stderr = 5;
+  optional bool tty = 6;
+  optional string container = 7;
+}
+
+message PodExecOptions {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional bool stdin = 3;
+  optional bool stdout = 4;
+  optional bool stderr = 5;
+  optional bool tty = 6;
+  optional string container = 7;
+  repeated string command = 8;
+}
+
+message PodPortForwardOptions {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  repeated int32 ports = 3;
+}
+
+message PodProxyOptions {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional string path = 3;
+}
+
+message NodeProxyOptions {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional string path = 3;
+}
+
+message ServiceProxyOptions {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional string path = 3;
+}
+
+message SerializedReference {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional ObjectReference reference = 3;
+}
+
+message Event {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional ObjectReference involvedObject = 4;
+  optional string reason = 5;
+  optional string message = 6;
+  optional EventSource source = 7;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time firstTimestamp = 8;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastTimestamp = 9;
+  optional int32 count = 10;
+  optional string type = 11;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.MicroTime eventTime = 12;
+  optional EventSeries series = 13;
+  optional string action = 14;
+  optional ObjectReference related = 15;
+  optional string reportingComponent = 16;
+  optional string reportingInstance = 17;
+}
+
+message EventList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated Event items = 4;
+}
+
+message LimitRange {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional LimitRangeSpec spec = 4;
+}
+
+message LimitRangeList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated LimitRange items = 4;
+}
+
+message ResourceQuota {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional ResourceQuotaSpec spec = 4;
+  optional ResourceQuotaStatus status = 5;
+}
+
+message ResourceQuotaList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated ResourceQuota items = 4;
+}
+
+message Secret {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional bool immutable = 4;
+  map<string, bytes> data = 5;
+  map<string, string> stringData = 6;
+  optional string type = 7;
+}
+
+message SecretList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated Secret items = 4;
+}
+
+message ConfigMap {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional bool immutable = 4;
+  map<string, string> data = 5;
+  map<string, bytes> binaryData = 6;
+}
+
+message ConfigMapList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated ConfigMap items = 4;
+}
+
+message ComponentStatus {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  repeated ComponentCondition conditions = 4;
+}
+
+message ComponentStatusList {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated ComponentStatus items = 4;
+}
+
+message RangeAllocation {
+  optional string kind = 1;
+  optional string apiVersion = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  optional string range = 4;
+  optional bytes data = 5;
+}
+
+message AWSElasticBlockStoreVolumeSource {
+  optional string volumeID = 1;
+  optional string fsType = 2;
+  optional int32 partition = 3;
+  optional bool readOnly = 4;
+}
+
+message Affinity {
+  optional NodeAffinity nodeAffinity = 1;
+  optional PodAffinity podAffinity = 2;
+  optional PodAntiAffinity podAntiAffinity = 3;
+}
+
+message AppArmorProfile {
+  optional string type = 1;
+  optional string localhostProfile = 2;
+}
+
+message AttachedVolume {
+  optional string name = 1;
+  optional string devicePath = 2;
+}
+
+message AvoidPods {
+  repeated PreferAvoidPodsEntry preferAvoidPods = 1;
+}
+
+message AzureDiskVolumeSource {
+  optional string diskName = 1;
+  optional string diskURI = 2;
+  optional string cachingMode = 3;
+  optional string fsType = 4;
+  optional bool readOnly = 5;
+  optional string kind = 6;
+}
+
+message AzureFilePersistentVolumeSource {
+  optional string secretName = 1;
+  optional string shareName = 2;
+  optional bool readOnly = 3;
+  optional string secretNamespace = 4;
+}
+
+message AzureFileVolumeSource {
+  optional string secretName = 1;
+  optional string shareName = 2;
+  optional bool readOnly = 3;
+}
+
+message CSIPersistentVolumeSource {
+  optional string driver = 1;
+  optional string volumeHandle = 2;
+  optional bool readOnly = 3;
+  optional string fsType = 4;
+  map<string, string> volumeAttributes = 5;
+  optional SecretReference controllerPublishSecretRef = 6;
+  optional SecretReference nodeStageSecretRef = 7;
+  optional SecretReference nodePublishSecretRef = 8;
+  optional SecretReference controllerExpandSecretRef = 9;
+  optional SecretReference nodeExpandSecretRef = 10;
+}
+
+message CSIVolumeSource {
+  optional string driver = 1;
+  optional bool readOnly = 2;
+  optional string fsType = 3;
+  map<string, string> volumeAttributes = 4;
+  optional LocalObjectReference nodePublishSecretRef = 5;
+}
+
+message Capabilities {
+  repeated string add = 1;
+  repeated string drop = 2;
+}
+
+message CephFSPersistentVolumeSource {
+  repeated string monitors = 1;
+  optional string path = 2;
+  optional string user = 3;
+  optional string secretFile = 4;
+  optional SecretReference secretRef = 5;
+  optional bool readOnly = 6;
+}
+
+message CephFSVolumeSource {
+  repeated string monitors = 1;
+  optional string path = 2;
+  optional string user = 3;
+  optional string secretFile = 4;
+  optional LocalObjectReference secretRef = 5;
+  optional bool readOnly = 6;
+}
+
+message CinderPersistentVolumeSource {
+  optional string volumeID = 1;
+  optional string fsType = 2;
+  optional bool readOnly = 3;
+  optional SecretReference secretRef = 4;
+}
+
+message CinderVolumeSource {
+  optional string volumeID = 1;
+  optional string fsType = 2;
+  optional bool readOnly = 3;
+  optional LocalObjectReference secretRef = 4;
+}
+
+message ClientIPConfig {
+  optional int32 timeoutSeconds = 1;
+}
+
+message ClusterTrustBundleProjection {
+  optional string name = 1;
+  optional string signerName = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector labelSelector = 3;
+  optional bool optional = 5;
+  optional string path = 4;
+}
+
+message ComponentCondition {
+  optional string type = 1;
+  optional string status = 2;
+  optional string message = 3;
+  optional string error = 4;
+}
+
+message ConfigMapEnvSource {
+  optional LocalObjectReference localObjectReference = 1;
+  optional bool optional = 2;
+}
+
+message ConfigMapKeySelector {
+  optional LocalObjectReference localObjectReference = 1;
+  optional string key = 2;
+  optional bool optional = 3;
+}
+
+message ConfigMapNodeConfigSource {
+  optional string namespace = 1;
+  optional string name = 2;
+  optional string uid = 3;
+  optional string resourceVersion = 4;
+  optional string kubeletConfigKey = 5;
+}
+
+message ConfigMapProjection {
+  optional LocalObjectReference localObjectReference = 1;
+  repeated KeyToPath items = 2;
+  optional bool optional = 4;
+}
+
+message ConfigMapVolumeSource {
+  optional LocalObjectReference localObjectReference = 1;
+  repeated KeyToPath items = 2;
+  optional int32 defaultMode = 3;
+  optional bool optional = 4;
+}
+
+message Container {
+  optional string name = 1;
+  optional string image = 2;
+  repeated string command = 3;
+  repeated string args = 4;
+  optional string workingDir = 5;
+  repeated ContainerPort ports = 6;
+  repeated EnvFromSource envFrom = 19;
+  repeated EnvVar env = 7;
+  optional ResourceRequirements resources = 8;
+  repeated ContainerResizePolicy resizePolicy = 23;
+  optional string restartPolicy = 24;
+  repeated VolumeMount volumeMounts = 9;
+  repeated VolumeDevice volumeDevices = 21;
+  optional Probe livenessProbe = 10;
+  optional Probe readinessProbe = 11;
+  optional Probe startupProbe = 22;
+  optional Lifecycle lifecycle = 12;
+  optional string terminationMessagePath = 13;
+  optional string terminationMessagePolicy = 20;
+  optional string imagePullPolicy = 14;
+  optional SecurityContext securityContext = 15;
+  optional bool stdin = 16;
+  optional bool stdinOnce = 17;
+  optional bool tty = 18;
+}
+
+message ContainerImage {
+  repeated string names = 1;
+  optional int64 sizeBytes = 2;
+}
+
+message ContainerPort {
+  optional string name = 1;
+  optional int32 hostPort = 2;
+  optional int32 containerPort = 3;
+  optional string protocol = 4;
+  optional string hostIP = 5;
+}
+
+message ContainerResizePolicy {
+  optional string resourceName = 1;
+  optional string restartPolicy = 2;
+}
+
+message ContainerState {
+  optional ContainerStateWaiting waiting = 1;
+  optional ContainerStateRunning running = 2;
+  optional ContainerStateTerminated terminated = 3;
+}
+
+message ContainerStateRunning {
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time startedAt = 1;
+}
+
+message ContainerStateTerminated {
+  optional int32 exitCode = 1;
+  optional int32 signal = 2;
+  optional string reason = 3;
+  optional string message = 4;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time startedAt = 5;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time finishedAt = 6;
+  optional string containerID = 7;
+}
+
+message ContainerStateWaiting {
+  optional string reason = 1;
+  optional string message = 2;
+}
+
+message ContainerStatus {
+  optional string name = 1;
+  optional ContainerState state = 2;
+  optional ContainerState lastState = 3;
+  optional bool ready = 4;
+  optional int32 restartCount = 5;
+  optional string image = 6;
+  optional string imageID = 7;
+  optional string containerID = 8;
+  optional bool started = 9;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> allocatedResources = 10;
+  optional ResourceRequirements resources = 11;
+  repeated VolumeMountStatus volumeMounts = 12;
+  optional ContainerUser user = 13;
+  repeated ResourceStatus allocatedResourcesStatus = 14;
+}
+
+message ContainerUser {
+  optional LinuxContainerUser linux = 1;
+}
+
+message DaemonEndpoint {
+  optional int32 Port = 1;
+}
+
+message DownwardAPIProjection {
+  repeated DownwardAPIVolumeFile items = 1;
+}
+
+message DownwardAPIVolumeFile {
+  optional string path = 1;
+  optional ObjectFieldSelector fieldRef = 2;
+  optional ResourceFieldSelector resourceFieldRef = 3;
+  optional int32 mode = 4;
+}
+
+message DownwardAPIVolumeSource {
+  repeated DownwardAPIVolumeFile items = 1;
+  optional int32 defaultMode = 2;
+}
+
+message EmptyDirVolumeSource {
+  optional string medium = 1;
+  optional .k8s.io.apimachinery.pkg.api.resource.Quantity sizeLimit = 2;
+}
+
+message EndpointAddress {
+  optional string ip = 1;
+  optional string hostname = 3;
+  optional string nodeName = 4;
+  optional ObjectReference targetRef = 2;
+}
+
+message EndpointPort {
+  optional string name = 1;
+  optional int32 port = 2;
+  optional string protocol = 3;
+  optional string appProtocol = 4;
+}
+
+message EndpointSubset {
+  repeated EndpointAddress addresses = 1;
+  repeated EndpointAddress notReadyAddresses = 2;
+  repeated EndpointPort ports = 3;
+}
+
+message EnvFromSource {
+  optional string prefix = 1;
+  optional ConfigMapEnvSource configMapRef = 2;
+  optional SecretEnvSource secretRef = 3;
+}
+
+message EnvVar {
+  optional string name = 1;
+  optional string value = 2;
+  optional EnvVarSource valueFrom = 3;
+}
+
+message EnvVarSource {
+  optional ObjectFieldSelector fieldRef = 1;
+  optional ResourceFieldSelector resourceFieldRef = 2;
+  optional ConfigMapKeySelector configMapKeyRef = 3;
+  optional SecretKeySelector secretKeyRef = 4;
+}
+
+message EphemeralContainer {
+  optional EphemeralContainerCommon ephemeralContainerCommon = 1;
+  optional string targetContainerName = 2;
+}
+
+message EphemeralContainerCommon {
+  optional string name = 1;
+  optional string image = 2;
+  repeated string command = 3;
+  repeated string args = 4;
+  optional string workingDir = 5;
+  repeated ContainerPort ports = 6;
+  repeated EnvFromSource envFrom = 19;
+  repeated EnvVar env = 7;
+  optional ResourceRequirements resources = 8;
+  repeated ContainerResizePolicy resizePolicy = 23;
+  optional string restartPolicy = 24;
+  repeated VolumeMount volumeMounts = 9;
+  repeated VolumeDevice volumeDevices = 21;
+  optional Probe livenessProbe = 10;
+  optional Probe readinessProbe = 11;
+  optional Probe startupProbe = 22;
+  optional Lifecycle lifecycle = 12;
+  optional string terminationMessagePath = 13;
+  optional string terminationMessagePolicy = 20;
+  optional string imagePullPolicy = 14;
+  optional SecurityContext securityContext = 15;
+  optional bool stdin = 16;
+  optional bool stdinOnce = 17;
+  optional bool tty = 18;
+}
+
+message EphemeralVolumeSource {
+  optional PersistentVolumeClaimTemplate volumeClaimTemplate = 1;
+}
+
+message EventSeries {
+  optional int32 count = 1;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.MicroTime lastObservedTime = 2;
+}
+
+message EventSource {
+  optional string component = 1;
+  optional string host = 2;
+}
+
+message ExecAction {
+  repeated string command = 1;
+}
+
+message FCVolumeSource {
+  repeated string targetWWNs = 1;
+  optional int32 lun = 2;
+  optional string fsType = 3;
+  optional bool readOnly = 4;
+  repeated string wwids = 5;
+}
+
+message FlexPersistentVolumeSource {
+  optional string driver = 1;
+  optional string fsType = 2;
+  optional SecretReference secretRef = 3;
+  optional bool readOnly = 4;
+  map<string, string> options = 5;
+}
+
+message FlexVolumeSource {
+  optional string driver = 1;
+  optional string fsType = 2;
+  optional LocalObjectReference secretRef = 3;
+  optional bool readOnly = 4;
+  map<string, string> options = 5;
+}
+
+message FlockerVolumeSource {
+  optional string datasetName = 1;
+  optional string datasetUUID = 2;
+}
+
+message GCEPersistentDiskVolumeSource {
+  optional string pdName = 1;
+  optional string fsType = 2;
+  optional int32 partition = 3;
+  optional bool readOnly = 4;
+}
+
+message GRPCAction {
+  optional int32 port = 1;
+  optional string service = 2;
+}
+
+message GitRepoVolumeSource {
+  optional string repository = 1;
+  optional string revision = 2;
+  optional string directory = 3;
+}
+
+message GlusterfsPersistentVolumeSource {
+  optional string endpoints = 1;
+  optional string path = 2;
+  optional bool readOnly = 3;
+  optional string endpointsNamespace = 4;
+}
+
+message GlusterfsVolumeSource {
+  optional string endpoints = 1;
+  optional string path = 2;
+  optional bool readOnly = 3;
+}
+
+message HTTPGetAction {
+  optional string path = 1;
+  optional .k8s.io.apimachinery.pkg.util.intstr.IntOrString port = 2;
+  optional string host = 3;
+  optional string scheme = 4;
+  repeated HTTPHeader httpHeaders = 5;
+}
+
+message HTTPHeader {
+  optional string name = 1;
+  optional string value = 2;
+}
+
+message HostAlias {
+  optional string ip = 1;
+  repeated string hostnames = 2;
+}
+
+message HostIP {
+  optional string ip = 1;
+}
+
+message HostPathVolumeSource {
+  optional string path = 1;
+  optional string type = 2;
+}
+
+message ISCSIPersistentVolumeSource {
+  optional string targetPortal = 1;
+  optional string iqn = 2;
+  optional int32 lun = 3;
+  optional string iscsiInterface = 4;
+  optional string fsType = 5;
+  optional bool readOnly = 6;
+  repeated string portals = 7;
+  optional bool chapAuthDiscovery = 8;
+  optional bool chapAuthSession = 11;
+  optional SecretReference secretRef = 10;
+  optional string initiatorName = 12;
+}
+
+message ISCSIVolumeSource {
+  optional string targetPortal = 1;
+  optional string iqn = 2;
+  optional int32 lun = 3;
+  optional string iscsiInterface = 4;
+  optional string fsType = 5;
+  optional bool readOnly = 6;
+  repeated string portals = 7;
+  optional bool chapAuthDiscovery = 8;
+  optional bool chapAuthSession = 11;
+  optional LocalObjectReference secretRef = 10;
+  optional string initiatorName = 12;
+}
+
+message ImageVolumeSource {
+  optional string reference = 1;
+  optional string pullPolicy = 2;
+}
+
+message KeyToPath {
+  optional string key = 1;
+  optional string path = 2;
+  optional int32 mode = 3;
+}
+
+message Lifecycle {
+  optional LifecycleHandler postStart = 1;
+  optional LifecycleHandler preStop = 2;
+}
+
+message LifecycleHandler {
+  optional ExecAction exec = 1;
+  optional HTTPGetAction httpGet = 2;
+  optional TCPSocketAction tcpSocket = 3;
+  optional SleepAction sleep = 4;
+}
+
+message LimitRangeItem {
+  optional string type = 1;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> max = 2;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> min = 3;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> default = 4;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> defaultRequest = 5;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> maxLimitRequestRatio = 6;
+}
+
+message LimitRangeSpec {
+  repeated LimitRangeItem limits = 1;
+}
+
+message LinuxContainerUser {
+  optional int64 uid = 1;
+  optional int64 gid = 2;
+  repeated int64 supplementalGroups = 3;
+}
+
+message List {
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 1;
+  repeated .k8s.io.apimachinery.pkg.runtime.RawExtension items = 2;
+}
+
+message LoadBalancerIngress {
+  optional string ip = 1;
+  optional string hostname = 2;
+  optional string ipMode = 3;
+  repeated PortStatus ports = 4;
+}
+
+message LoadBalancerStatus {
+  repeated LoadBalancerIngress ingress = 1;
+}
+
+message LocalObjectReference {
+  optional string name = 1;
+}
+
+message LocalVolumeSource {
+  optional string path = 1;
+  optional string fsType = 2;
+}
+
+message ModifyVolumeStatus {
+  optional string targetVolumeAttributesClassName = 1;
+  optional string status = 2;
+}
+
+message NFSVolumeSource {
+  optional string server = 1;
+  optional string path = 2;
+  optional bool readOnly = 3;
+}
+
+message NamespaceCondition {
+  optional string type = 1;
+  optional string status = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastTransitionTime = 4;
+  optional string reason = 5;
+  optional string message = 6;
+}
+
+message NamespaceSpec {
+  repeated string finalizers = 1;
+}
+
+message NamespaceStatus {
+  optional string phase = 1;
+  repeated NamespaceCondition conditions = 2;
+}
+
+message NodeAddress {
+  optional string type = 1;
+  optional string address = 2;
+}
+
+message NodeAffinity {
+  optional NodeSelector requiredDuringSchedulingIgnoredDuringExecution = 1;
+  repeated PreferredSchedulingTerm preferredDuringSchedulingIgnoredDuringExecution = 2;
+}
+
+message NodeCondition {
+  optional string type = 1;
+  optional string status = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastHeartbeatTime = 3;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastTransitionTime = 4;
+  optional string reason = 5;
+  optional string message = 6;
+}
+
+message NodeConfigSource {
+  optional ConfigMapNodeConfigSource configMap = 2;
+}
+
+message NodeConfigStatus {
+  optional NodeConfigSource assigned = 1;
+  optional NodeConfigSource active = 2;
+  optional NodeConfigSource lastKnownGood = 3;
+  optional string error = 4;
+}
+
+message NodeDaemonEndpoints {
+  optional DaemonEndpoint kubeletEndpoint = 1;
+}
+
+message NodeFeatures {
+  optional bool supplementalGroupsPolicy = 1;
+}
+
+message NodeRuntimeHandler {
+  optional string name = 1;
+  optional NodeRuntimeHandlerFeatures features = 2;
+}
+
+message NodeRuntimeHandlerFeatures {
+  optional bool recursiveReadOnlyMounts = 1;
+  optional bool userNamespaces = 2;
+}
+
+message NodeSelector {
+  repeated NodeSelectorTerm nodeSelectorTerms = 1;
+}
+
+message NodeSelectorRequirement {
+  optional string key = 1;
+  optional string operator = 2;
+  repeated string values = 3;
+}
+
+message NodeSelectorTerm {
+  repeated NodeSelectorRequirement matchExpressions = 1;
+  repeated NodeSelectorRequirement matchFields = 2;
+}
+
+message NodeSpec {
+  optional string podCIDR = 1;
+  repeated string podCIDRs = 7;
+  optional string providerID = 3;
+  optional bool unschedulable = 4;
+  repeated Taint taints = 5;
+  optional NodeConfigSource configSource = 6;
+  optional string externalID = 2;
+}
+
+message NodeStatus {
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> capacity = 1;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> allocatable = 2;
+  optional string phase = 3;
+  repeated NodeCondition conditions = 4;
+  repeated NodeAddress addresses = 5;
+  optional NodeDaemonEndpoints daemonEndpoints = 6;
+  optional NodeSystemInfo nodeInfo = 7;
+  repeated ContainerImage images = 8;
+  repeated string volumesInUse = 9;
+  repeated AttachedVolume volumesAttached = 10;
+  optional NodeConfigStatus config = 11;
+  repeated NodeRuntimeHandler runtimeHandlers = 12;
+  optional NodeFeatures features = 13;
+}
+
+message NodeSystemInfo {
+  optional string machineID = 1;
+  optional string systemUUID = 2;
+  optional string bootID = 3;
+  optional string kernelVersion = 4;
+  optional string osImage = 5;
+  optional string containerRuntimeVersion = 6;
+  optional string kubeletVersion = 7;
+  optional string kubeProxyVersion = 8;
+  optional string operatingSystem = 9;
+  optional string architecture = 10;
+}
+
+message ObjectFieldSelector {
+  optional string apiVersion = 1;
+  optional string fieldPath = 2;
+}
+
+message ObjectReference {
+  optional string kind = 1;
+  optional string namespace = 2;
+  optional string name = 3;
+  optional string uid = 4;
+  optional string apiVersion = 5;
+  optional string resourceVersion = 6;
+  optional string fieldPath = 7;
+}
+
+message PersistentVolumeClaimCondition {
+  optional string type = 1;
+  optional string status = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastProbeTime = 3;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastTransitionTime = 4;
+  optional string reason = 5;
+  optional string message = 6;
+}
+
+message PersistentVolumeClaimSpec {
+  repeated string accessModes = 1;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 4;
+  optional VolumeResourceRequirements resources = 2;
+  optional string volumeName = 3;
+  optional string storageClassName = 5;
+  optional string volumeMode = 6;
+  optional TypedLocalObjectReference dataSource = 7;
+  optional TypedObjectReference dataSourceRef = 8;
+  optional string volumeAttributesClassName = 9;
+}
+
+message PersistentVolumeClaimStatus {
+  optional string phase = 1;
+  repeated string accessModes = 2;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> capacity = 3;
+  repeated PersistentVolumeClaimCondition conditions = 4;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> allocatedResources = 5;
+  map<string, string> allocatedResourceStatuses = 7;
+  optional string currentVolumeAttributesClassName = 8;
+  optional ModifyVolumeStatus modifyVolumeStatus = 9;
+}
+
+message PersistentVolumeClaimTemplate {
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 1;
+  optional PersistentVolumeClaimSpec spec = 2;
+}
+
+message PersistentVolumeClaimVolumeSource {
+  optional string claimName = 1;
+  optional bool readOnly = 2;
+}
+
+message PersistentVolumeSource {
+  optional GCEPersistentDiskVolumeSource gcePersistentDisk = 1;
+  optional AWSElasticBlockStoreVolumeSource awsElasticBlockStore = 2;
+  optional HostPathVolumeSource hostPath = 3;
+  optional GlusterfsPersistentVolumeSource glusterfs = 4;
+  optional NFSVolumeSource nfs = 5;
+  optional RBDPersistentVolumeSource rbd = 6;
+  optional ISCSIPersistentVolumeSource iscsi = 7;
+  optional CinderPersistentVolumeSource cinder = 8;
+  optional CephFSPersistentVolumeSource cephfs = 9;
+  optional FCVolumeSource fc = 10;
+  optional FlockerVolumeSource flocker = 11;
+  optional FlexPersistentVolumeSource flexVolume = 12;
+  optional AzureFilePersistentVolumeSource azureFile = 13;
+  optional VsphereVirtualDiskVolumeSource vsphereVolume = 14;
+  optional QuobyteVolumeSource quobyte = 15;
+  optional AzureDiskVolumeSource azureDisk = 16;
+  optional PhotonPersistentDiskVolumeSource photonPersistentDisk = 17;
+  optional PortworxVolumeSource portworxVolume = 18;
+  optional ScaleIOPersistentVolumeSource scaleIO = 19;
+  optional LocalVolumeSource local = 20;
+  optional StorageOSPersistentVolumeSource storageos = 21;
+  optional CSIPersistentVolumeSource csi = 22;
+}
+
+message PersistentVolumeSpec {
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> capacity = 1;
+  optional PersistentVolumeSource persistentVolumeSource = 2;
+  repeated string accessModes = 3;
+  optional ObjectReference claimRef = 4;
+  optional string persistentVolumeReclaimPolicy = 5;
+  optional string storageClassName = 6;
+  repeated string mountOptions = 7;
+  optional string volumeMode = 8;
+  optional VolumeNodeAffinity nodeAffinity = 9;
+  optional string volumeAttributesClassName = 10;
+}
+
+message PersistentVolumeStatus {
+  optional string phase = 1;
+  optional string message = 2;
+  optional string reason = 3;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastPhaseTransitionTime = 4;
+}
+
+message PhotonPersistentDiskVolumeSource {
+  optional string pdID = 1;
+  optional string fsType = 2;
+}
+
+message PodAffinity {
+  repeated PodAffinityTerm requiredDuringSchedulingIgnoredDuringExecution = 1;
+  repeated WeightedPodAffinityTerm preferredDuringSchedulingIgnoredDuringExecution = 2;
+}
+
+message PodAffinityTerm {
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector labelSelector = 1;
+  repeated string namespaces = 2;
+  optional string topologyKey = 3;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector namespaceSelector = 4;
+  repeated string matchLabelKeys = 5;
+  repeated string mismatchLabelKeys = 6;
+}
+
+message PodAntiAffinity {
+  repeated PodAffinityTerm requiredDuringSchedulingIgnoredDuringExecution = 1;
+  repeated WeightedPodAffinityTerm preferredDuringSchedulingIgnoredDuringExecution = 2;
+}
+
+message PodCondition {
+  optional string type = 1;
+  optional string status = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastProbeTime = 3;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastTransitionTime = 4;
+  optional string reason = 5;
+  optional string message = 6;
+}
+
+message PodDNSConfig {
+  repeated string nameservers = 1;
+  repeated string searches = 2;
+  repeated PodDNSConfigOption options = 3;
+}
+
+message PodDNSConfigOption {
+  optional string name = 1;
+  optional string value = 2;
+}
+
+message PodIP {
+  optional string ip = 1;
+}
+
+message PodOS {
+  optional string name = 1;
+}
+
+message PodReadinessGate {
+  optional string conditionType = 1;
+}
+
+message PodResourceClaim {
+  optional string name = 1;
+  optional string resourceClaimName = 3;
+  optional string resourceClaimTemplateName = 4;
+}
+
+message PodResourceClaimStatus {
+  optional string name = 1;
+  optional string resourceClaimName = 2;
+}
+
+message PodSchedulingGate {
+  optional string name = 1;
+}
+
+message PodSecurityContext {
+  optional SELinuxOptions seLinuxOptions = 1;
+  optional WindowsSecurityContextOptions windowsOptions = 8;
+  optional int64 runAsUser = 2;
+  optional int64 runAsGroup = 6;
+  optional bool runAsNonRoot = 3;
+  repeated int64 supplementalGroups = 4;
+  optional string supplementalGroupsPolicy = 12;
+  optional int64 fsGroup = 5;
+  repeated Sysctl sysctls = 7;
+  optional string fsGroupChangePolicy = 9;
+  optional SeccompProfile seccompProfile = 10;
+  optional AppArmorProfile appArmorProfile = 11;
+}
+
+message PodSignature {
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.OwnerReference podController = 1;
+}
+
+message PodSpec {
+  repeated Volume volumes = 1;
+  repeated Container initContainers = 20;
+  repeated Container containers = 2;
+  repeated EphemeralContainer ephemeralContainers = 34;
+  optional string restartPolicy = 3;
+  optional int64 terminationGracePeriodSeconds = 4;
+  optional int64 activeDeadlineSeconds = 5;
+  optional string dnsPolicy = 6;
+  map<string, string> nodeSelector = 7;
+  optional string serviceAccountName = 8;
+  optional string serviceAccount = 9;
+  optional bool automountServiceAccountToken = 21;
+  optional string nodeName = 10;
+  optional bool hostNetwork = 11;
+  optional bool hostPID = 12;
+  optional bool hostIPC = 13;
+  optional bool shareProcessNamespace = 27;
+  optional PodSecurityContext securityContext = 14;
+  repeated LocalObjectReference imagePullSecrets = 15;
+  optional string hostname = 16;
+  optional string subdomain = 17;
+  optional Affinity affinity = 18;
+  optional string schedulerName = 19;
+  repeated Toleration tolerations = 22;
+  repeated HostAlias hostAliases = 23;
+  optional string priorityClassName = 24;
+  optional int32 priority = 25;
+  optional PodDNSConfig dnsConfig = 26;
+  repeated PodReadinessGate readinessGates = 28;
+  optional string runtimeClassName = 29;
+  optional bool enableServiceLinks = 30;
+  optional string preemptionPolicy = 31;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> overhead = 32;
+  repeated TopologySpreadConstraint topologySpreadConstraints = 33;
+  optional bool setHostnameAsFQDN = 35;
+  optional PodOS os = 36;
+  optional bool hostUsers = 37;
+  repeated PodSchedulingGate schedulingGates = 38;
+  repeated PodResourceClaim resourceClaims = 39;
+}
+
+message PodTemplateSpec {
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 1;
+  optional PodSpec spec = 2;
+}
+
+message PortStatus {
+  optional int32 port = 1;
+  optional string protocol = 2;
+  optional string error = 3;
+}
+
+message PortworxVolumeSource {
+  optional string volumeID = 1;
+  optional string fsType = 2;
+  optional bool readOnly = 3;
+}
+
+message Preconditions {
+  optional string uid = 1;
+}
+
+message PreferAvoidPodsEntry {
+  optional PodSignature podSignature = 1;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time evictionTime = 2;
+  optional string reason = 3;
+  optional string message = 4;
+}
+
+message PreferredSchedulingTerm {
+  optional int32 weight = 1;
+  optional NodeSelectorTerm preference = 2;
+}
+
+message Probe {
+  optional ProbeHandler handler = 1;
+  optional int32 initialDelaySeconds = 2;
+  optional int32 timeoutSeconds = 3;
+  optional int32 periodSeconds = 4;
+  optional int32 successThreshold = 5;
+  optional int32 failureThreshold = 6;
+  optional int64 terminationGracePeriodSeconds = 7;
+}
+
+message ProbeHandler {
+  optional ExecAction exec = 1;
+  optional HTTPGetAction httpGet = 2;
+  optional TCPSocketAction tcpSocket = 3;
+  optional GRPCAction grpc = 4;
+}
+
+message ProjectedVolumeSource {
+  repeated VolumeProjection sources = 1;
+  optional int32 defaultMode = 2;
+}
+
+message QuobyteVolumeSource {
+  optional string registry = 1;
+  optional string volume = 2;
+  optional bool readOnly = 3;
+  optional string user = 4;
+  optional string group = 5;
+  optional string tenant = 6;
+}
+
+message RBDPersistentVolumeSource {
+  repeated string monitors = 1;
+  optional string image = 2;
+  optional string fsType = 3;
+  optional string pool = 4;
+  optional string user = 5;
+  optional string keyring = 6;
+  optional SecretReference secretRef = 7;
+  optional bool readOnly = 8;
+}
+
+message RBDVolumeSource {
+  repeated string monitors = 1;
+  optional string image = 2;
+  optional string fsType = 3;
+  optional string pool = 4;
+  optional string user = 5;
+  optional string keyring = 6;
+  optional LocalObjectReference secretRef = 7;
+  optional bool readOnly = 8;
+}
+
+message ReplicationControllerCondition {
+  optional string type = 1;
+  optional string status = 2;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time lastTransitionTime = 3;
+  optional string reason = 4;
+  optional string message = 5;
+}
+
+message ReplicationControllerSpec {
+  optional int32 replicas = 1;
+  optional int32 minReadySeconds = 4;
+  map<string, string> selector = 2;
+  optional PodTemplateSpec template = 3;
+}
+
+message ReplicationControllerStatus {
+  optional int32 replicas = 1;
+  optional int32 fullyLabeledReplicas = 2;
+  optional int32 readyReplicas = 4;
+  optional int32 availableReplicas = 5;
+  optional int64 observedGeneration = 3;
+  repeated ReplicationControllerCondition conditions = 6;
+}
+
+message ResourceClaim {
+  optional string name = 1;
+  optional string request = 2;
+}
+
+message ResourceFieldSelector {
+  optional string containerName = 1;
+  optional string resource = 2;
+  optional .k8s.io.apimachinery.pkg.api.resource.Quantity divisor = 3;
+}
+
+message ResourceHealth {
+  optional string resourceID = 1;
+  optional string health = 2;
+}
+
+message ResourceQuotaSpec {
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> hard = 1;
+  repeated string scopes = 2;
+  optional ScopeSelector scopeSelector = 3;
+}
+
+message ResourceQuotaStatus {
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> hard = 1;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> used = 2;
+}
+
+message ResourceRequirements {
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> limits = 1;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> requests = 2;
+  repeated ResourceClaim claims = 3;
+}
+
+message ResourceStatus {
+  optional string name = 1;
+  repeated ResourceHealth resources = 2;
+}
+
+message SELinuxOptions {
+  optional string user = 1;
+  optional string role = 2;
+  optional string type = 3;
+  optional string level = 4;
+}
+
+message ScaleIOPersistentVolumeSource {
+  optional string gateway = 1;
+  optional string system = 2;
+  optional SecretReference secretRef = 3;
+  optional bool sslEnabled = 4;
+  optional string protectionDomain = 5;
+  optional string storagePool = 6;
+  optional string storageMode = 7;
+  optional string volumeName = 8;
+  optional string fsType = 9;
+  optional bool readOnly = 10;
+}
+
+message ScaleIOVolumeSource {
+  optional string gateway = 1;
+  optional string system = 2;
+  optional LocalObjectReference secretRef = 3;
+  optional bool sslEnabled = 4;
+  optional string protectionDomain = 5;
+  optional string storagePool = 6;
+  optional string storageMode = 7;
+  optional string volumeName = 8;
+  optional string fsType = 9;
+  optional bool readOnly = 10;
+}
+
+message ScopeSelector {
+  repeated ScopedResourceSelectorRequirement matchExpressions = 1;
+}
+
+message ScopedResourceSelectorRequirement {
+  optional string scopeName = 1;
+  optional string operator = 2;
+  repeated string values = 3;
+}
+
+message SeccompProfile {
+  optional string type = 1;
+  optional string localhostProfile = 2;
+}
+
+message SecretEnvSource {
+  optional LocalObjectReference localObjectReference = 1;
+  optional bool optional = 2;
+}
+
+message SecretKeySelector {
+  optional LocalObjectReference localObjectReference = 1;
+  optional string key = 2;
+  optional bool optional = 3;
+}
+
+message SecretProjection {
+  optional LocalObjectReference localObjectReference = 1;
+  repeated KeyToPath items = 2;
+  optional bool optional = 4;
+}
+
+message SecretReference {
+  optional string name = 1;
+  optional string namespace = 2;
+}
+
+message SecretVolumeSource {
+  optional string secretName = 1;
+  repeated KeyToPath items = 2;
+  optional int32 defaultMode = 3;
+  optional bool optional = 4;
+}
+
+message SecurityContext {
+  optional Capabilities capabilities = 1;
+  optional bool privileged = 2;
+  optional SELinuxOptions seLinuxOptions = 3;
+  optional WindowsSecurityContextOptions windowsOptions = 10;
+  optional int64 runAsUser = 4;
+  optional int64 runAsGroup = 8;
+  optional bool runAsNonRoot = 5;
+  optional bool readOnlyRootFilesystem = 6;
+  optional bool allowPrivilegeEscalation = 7;
+  optional string procMount = 9;
+  optional SeccompProfile seccompProfile = 11;
+  optional AppArmorProfile appArmorProfile = 12;
+}
+
+message ServiceAccountTokenProjection {
+  optional string audience = 1;
+  optional int64 expirationSeconds = 2;
+  optional string path = 3;
+}
+
+message ServicePort {
+  optional string name = 1;
+  optional string protocol = 2;
+  optional string appProtocol = 6;
+  optional int32 port = 3;
+  optional .k8s.io.apimachinery.pkg.util.intstr.IntOrString targetPort = 4;
+  optional int32 nodePort = 5;
+}
+
+message ServiceSpec {
+  repeated ServicePort ports = 1;
+  map<string, string> selector = 2;
+  optional string clusterIP = 3;
+  repeated string clusterIPs = 18;
+  optional string type = 4;
+  repeated string externalIPs = 5;
+  optional string sessionAffinity = 7;
+  optional string loadBalancerIP = 8;
+  repeated string loadBalancerSourceRanges = 9;
+  optional string externalName = 10;
+  optional string externalTrafficPolicy = 11;
+  optional int32 healthCheckNodePort = 12;
+  optional bool publishNotReadyAddresses = 13;
+  optional SessionAffinityConfig sessionAffinityConfig = 14;
+  repeated string ipFamilies = 19;
+  optional string ipFamilyPolicy = 17;
+  optional bool allocateLoadBalancerNodePorts = 20;
+  optional string loadBalancerClass = 21;
+  optional string internalTrafficPolicy = 22;
+  optional string trafficDistribution = 23;
+}
+
+message ServiceStatus {
+  optional LoadBalancerStatus loadBalancer = 1;
+  repeated .k8s.io.apimachinery.pkg.apis.meta.v1.Condition conditions = 2;
+}
+
+message SessionAffinityConfig {
+  optional ClientIPConfig clientIP = 1;
+}
+
+message SleepAction {
+  optional int64 seconds = 1;
+}
+
+message StorageOSPersistentVolumeSource {
+  optional string volumeName = 1;
+  optional string volumeNamespace = 2;
+  optional string fsType = 3;
+  optional bool readOnly = 4;
+  optional ObjectReference secretRef = 5;
+}
+
+message StorageOSVolumeSource {
+  optional string volumeName = 1;
+  optional string volumeNamespace = 2;
+  optional string fsType = 3;
+  optional bool readOnly = 4;
+  optional LocalObjectReference secretRef = 5;
+}
+
+message Sysctl {
+  optional string name = 1;
+  optional string value = 2;
+}
+
+message TCPSocketAction {
+  optional .k8s.io.apimachinery.pkg.util.intstr.IntOrString port = 1;
+  optional string host = 2;
+}
+
+message Taint {
+  optional string key = 1;
+  optional string value = 2;
+  optional string effect = 3;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.Time timeAdded = 4;
+}
+
+message Toleration {
+  optional string key = 1;
+  optional string operator = 2;
+  optional string value = 3;
+  optional string effect = 4;
+  optional int64 tolerationSeconds = 5;
+}
+
+message TopologySelectorLabelRequirement {
+  optional string key = 1;
+  repeated string values = 2;
+}
+
+message TopologySelectorTerm {
+  repeated TopologySelectorLabelRequirement matchLabelExpressions = 1;
+}
+
+message TopologySpreadConstraint {
+  optional int32 maxSkew = 1;
+  optional string topologyKey = 2;
+  optional string whenUnsatisfiable = 3;
+  optional .k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector labelSelector = 4;
+  optional int32 minDomains = 5;
+  optional string nodeAffinityPolicy = 6;
+  optional string nodeTaintsPolicy = 7;
+  repeated string matchLabelKeys = 8;
+}
+
+message TypedLocalObjectReference {
+  optional string apiGroup = 1;
+  optional string kind = 2;
+  optional string name = 3;
+}
+
+message TypedObjectReference {
+  optional string apiGroup = 1;
+  optional string kind = 2;
+  optional string name = 3;
+  optional string namespace = 4;
+}
+
+message Volume {
+  optional string name = 1;
+  optional VolumeSource volumeSource = 2;
+}
+
+message VolumeDevice {
+  optional string name = 1;
+  optional string devicePath = 2;
+}
+
+message VolumeMount {
+  optional string name = 1;
+  optional bool readOnly = 2;
+  optional string recursiveReadOnly = 7;
+  optional string mountPath = 3;
+  optional string subPath = 4;
+  optional string mountPropagation = 5;
+  optional string subPathExpr = 6;
+}
+
+message VolumeMountStatus {
+  optional string name = 1;
+  optional string mountPath = 2;
+  optional bool readOnly = 3;
+  optional string recursiveReadOnly = 4;
+}
+
+message VolumeNodeAffinity {
+  optional NodeSelector required = 1;
+}
+
+message VolumeProjection {
+  optional SecretProjection secret = 1;
+  optional DownwardAPIProjection downwardAPI = 2;
+  optional ConfigMapProjection configMap = 3;
+  optional ServiceAccountTokenProjection serviceAccountToken = 4;
+  optional ClusterTrustBundleProjection clusterTrustBundle = 5;
+}
+
+message VolumeResourceRequirements {
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> limits = 1;
+  map<string, .k8s.io.apimachinery.pkg.api.resource.Quantity> requests = 2;
+}
+
+message VolumeSource {
+  optional HostPathVolumeSource hostPath = 1;
+  optional EmptyDirVolumeSource emptyDir = 2;
+  optional GCEPersistentDiskVolumeSource gcePersistentDisk = 3;
+  optional AWSElasticBlockStoreVolumeSource awsElasticBlockStore = 4;
+  optional GitRepoVolumeSource gitRepo = 5;
+  optional SecretVolumeSource secret = 6;
+  optional NFSVolumeSource nfs = 7;
+  optional ISCSIVolumeSource iscsi = 8;
+  optional GlusterfsVolumeSource glusterfs = 9;
+  optional PersistentVolumeClaimVolumeSource persistentVolumeClaim = 10;
+  optional RBDVolumeSource rbd = 11;
+  optional FlexVolumeSource flexVolume = 12;
+  optional CinderVolumeSource cinder = 13;
+  optional CephFSVolumeSource cephfs = 14;
+  optional FlockerVolumeSource flocker = 15;
+  optional DownwardAPIVolumeSource downwardAPI = 16;
+  optional FCVolumeSource fc = 17;
+  optional AzureFileVolumeSource azureFile = 18;
+  optional ConfigMapVolumeSource configMap = 19;
+  optional VsphereVirtualDiskVolumeSource vsphereVolume = 20;
+  optional QuobyteVolumeSource quobyte = 21;
+  optional AzureDiskVolumeSource azureDisk = 22;
+  optional PhotonPersistentDiskVolumeSource photonPersistentDisk = 23;
+  optional ProjectedVolumeSource projected = 26;
+  optional PortworxVolumeSource portworxVolume = 24;
+  optional ScaleIOVolumeSource scaleIO = 25;
+  optional StorageOSVolumeSource storageos = 27;
+  optional CSIVolumeSource csi = 28;
+  optional EphemeralVolumeSource ephemeral = 29;
+  optional ImageVolumeSource image = 30;
+}
+
+message VsphereVirtualDiskVolumeSource {
+  optional string volumePath = 1;
+  optional string fsType = 2;
+  optional string storagePolicyName = 3;
+  optional string storagePolicyID = 4;
+}
+
+message WeightedPodAffinityTerm {
+  optional int32 weight = 1;
+  optional PodAffinityTerm podAffinityTerm = 2;
+}
+
+message WindowsSecurityContextOptions {
+  optional string gmsaCredentialSpecName = 1;
+  optional string gmsaCredentialSpec = 2;
+  optional string runAsUserName = 3;
+  optional bool hostProcess = 4;
+}
