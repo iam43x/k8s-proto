@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package istio.security.v1;
+
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+import "istio.io/api/security/v1beta1/authorization_policy.proto";
+import "istio.io/api/security/v1beta1/peer_authentication.proto";
+import "istio.io/api/security/v1beta1/request_authentication.proto";
+import "istio.io/api/meta/v1alpha1/status.proto";
+
+option go_package = "istio.io/client-go/pkg/apis/security/v1";
+
+// AuthorizationPolicy enables access control on workloads.
+message AuthorizationPolicy {
+  // Inlined fields from k8s.io.apimachinery.pkg.apis.meta.v1.TypeMeta
+  string api_version = 1;
+  string kind = 2;
+
+  .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  .istio.security.v1beta1.AuthorizationPolicy spec = 4;
+  optional .istio.meta.v1alpha1.IstioStatus status = 5;
+}
+
+// AuthorizationPolicyList is a collection of AuthorizationPolicies.
+message AuthorizationPolicyList {
+  // Inlined fields from k8s.io.apimachinery.pkg.apis.meta.v1.TypeMeta
+  string api_version = 1;
+  string kind = 2;
+
+  .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated AuthorizationPolicy items = 4;
+}
+
+// PeerAuthentication defines mutual TLS (mTLS) requirements for incoming connections.
+message PeerAuthentication {
+  // Inlined fields from k8s.io.apimachinery.pkg.apis.meta.v1.TypeMeta
+  string api_version = 1;
+  string kind = 2;
+
+  .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  .istio.security.v1beta1.PeerAuthentication spec = 4;
+  optional istio.meta.v1alpha1.IstioStatus status = 5;
+}
+
+// PeerAuthenticationList is a collection of PeerAuthentications.
+message PeerAuthenticationList {
+  // Inlined fields from k8s.io.apimachinery.pkg.apis.meta.v1.TypeMeta
+  string api_version = 1;
+  string kind = 2;
+
+  k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated PeerAuthentication items = 4;
+}
+
+// RequestAuthentication defines what request authentication methods are supported by a workload.
+message RequestAuthentication {
+  // Inlined fields from k8s.io.apimachinery.pkg.apis.meta.v1.TypeMeta
+  string api_version = 1;
+  string kind = 2;
+
+  .k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  .istio.security.v1beta1.RequestAuthentication spec = 4;
+  optional istio.meta.v1alpha1.IstioStatus status = 5;
+}
+
+// RequestAuthenticationList is a collection of RequestAuthentications.
+message RequestAuthenticationList {
+  // Inlined fields from k8s.io.apimachinery.pkg.apis.meta.v1.TypeMeta
+  string api_version = 1;
+  string kind = 2;
+
+  .k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  repeated RequestAuthentication items = 4;
+}
